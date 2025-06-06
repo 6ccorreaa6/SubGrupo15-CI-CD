@@ -23,4 +23,3 @@ namespace TiendaOnline.Models.ViewModel
     }
 }
 
-}
