@@ -31,7 +31,7 @@ namespace TiendaOnline.Controllers
             using var conn = new MySqlConnection(_connectionString);
             conn.Open();
 
-            string query = @"SELECT USU_NID, USU_CNOMBRE, USU_CCORREO, USU_CCONTRASEÑA, USU_CROL 
+            string query = @"SELECT USU_NID, USU_CNOMBRE, USU_CCORREO, USU_CCONTRASENA, USU_CROL 
                              FROM TBL_RUSUARIO 
                              WHERE USU_CCORREO = @correo";
 
@@ -41,7 +41,7 @@ namespace TiendaOnline.Controllers
             using var reader = cmd.ExecuteReader();
             if (reader.Read())
             {
-                string hashGuardado = reader["USU_CCONTRASEÑA"].ToString();
+                string hashGuardado = reader["USU_CCONTRASENA"].ToString();
                 if (VerificarPassword(modelo.Clave, hashGuardado))
                 {
                     string nombre = reader["USU_CNOMBRE"].ToString();
@@ -93,14 +93,14 @@ namespace TiendaOnline.Controllers
                 }
             }
 
-            string insertQuery = @"INSERT INTO TBL_RUSUARIO (USU_CNOMBRE, USU_CCORREO, USU_CCONTRASEÑA, USU_CROL)
-                                   VALUES (@nombre, @correo, @contraseña, 'cliente')";
+            string insertQuery = @"INSERT INTO TBL_RUSUARIO (USU_CNOMBRE, USU_CCORREO, USU_CCONTRASENA, USU_CROL)
+                                   VALUES (@nombre, @correo, @contrasena, 'cliente')";
 
             using (var cmd = new MySqlCommand(insertQuery, conn))
             {
                 cmd.Parameters.AddWithValue("@nombre", modelo.Nombre);
                 cmd.Parameters.AddWithValue("@correo", modelo.Correo);
-                cmd.Parameters.AddWithValue("@contraseña", HashPassword(modelo.Clave));
+                cmd.Parameters.AddWithValue("@contrasena", HashPassword(modelo.Clave));
                 cmd.ExecuteNonQuery();
             }
 
@@ -124,11 +124,11 @@ namespace TiendaOnline.Controllers
                     return Content("El usuario administrador ya existe.");
             }
 
-            string insertQuery = @"INSERT INTO TBL_RUSUARIO (USU_CNOMBRE, USU_CCORREO, USU_CCONTRASEÑA, USU_CROL)
-                                   VALUES ('Administrador', 'admin@admin.com', @contraseña, 'admin')";
+            string insertQuery = @"INSERT INTO TBL_RUSUARIO (USU_CNOMBRE, USU_CCORREO, USU_CCONTRASENA, USU_CROL)
+                                   VALUES ('Administrador', 'admin@admin.com', @contrasena, 'admin')";
             using (var cmd = new MySqlCommand(insertQuery, conn))
             {
-                cmd.Parameters.AddWithValue("@contraseña", HashPassword("admin123"));
+                cmd.Parameters.AddWithValue("@contrasena", HashPassword("admin123"));
                 cmd.ExecuteNonQuery();
             }
 
