@@ -21,7 +21,7 @@ try:
             USU_NID INT AUTO_INCREMENT PRIMARY KEY,
             USU_CNOMBRE VARCHAR(100),
             USU_CCORREO VARCHAR(100) UNIQUE,
-            USU_CCONTRASEÑA VARCHAR(255),
+            USU_CCONTRASENA VARCHAR(255),
             creado_en DATETIME DEFAULT CURRENT_TIMESTAMP
         )
         """)
