@@ -9,7 +9,7 @@ namespace TiendaOnline.Controllers
 {
     public class AuthController : Controller
     {
-        private readonly string _connectionString = "Server=mysql_container;Port=3306;Database=ecommerce_db;Uid=poligrangrupo15;Pwd=poli@/87**;";
+        private readonly string _connectionString = "Server=mysqlcontainer;Port=3306;Database=ecommerce_db;Uid=poligrangrupo15;Pwd=poli@/87**;";
 
         public IActionResult Login()
         {
